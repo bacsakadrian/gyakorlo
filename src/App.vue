@@ -1,12 +1,11 @@
 <template>
   <input v-model.number="szam" type="number">
-  <button v-on:click="add" type="button">Klikk!</button>
+  <button :disabled="isinvalid" v-on:click="add" type="button">Klikk!</button>
   <h1>Az érték: {{ szam > 0 ? szam : "default" }}</h1>
   <h2>Második érték:{{ertek}}</h2>
 </template>
 
 <script>
-
 export default {
   name: 'App',
   data() {
@@ -15,11 +14,15 @@ export default {
         ertek: 0
       }
     },
-
     methods: {
       add: function() {
         this.ertek = this.ertek + this.szam
         alert(this.ertek) 
+      }
+    },
+    computed: {
+      isinvalid() {
+        return this.szam.length == 0 || this.szam < 0
       }
     }
 }
