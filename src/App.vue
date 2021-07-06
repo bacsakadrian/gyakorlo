@@ -2,7 +2,11 @@
 <head>
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
 </head>
-<body>
+<body style="text-align : center">
+<input v-model.number="szam" type="number">
+  <button :disabled="isinvalid" v-on:click="add" type="button">Klikk!</button>
+  <h1>Az érték: {{ szam > 0 ? szam : "default" }}</h1>
+  <h2>Második érték:{{ertek}}</h2>
 <table class="table table-striped table-dark">
   <thead>
     <tr>
@@ -28,13 +32,18 @@
   </tfoot>
 </table>
 </body>
+<Info @my-event="reset" :num="ertek"></Info>
 </template>
 
 <script>
+import Info from './components/Info.vue'
 export default {
   name: 'App',
+  components: { Info, },
   data() { 
     return {
+    szam: 0,
+    ertek: 0,
       datas : [ 
        {idx : 1, oldVal : 3, newVal: 4, id : new Date(2000,1,1)},
        {idx : 2, oldVal : 5, newVal : 6, id: new Date(2021,7,5) },
@@ -54,6 +63,9 @@ export default {
             this.datas.splice(i, 1)
           }
         }
+      },
+      reset() {
+        this.ertek = 0
       }
     },
     computed: {
@@ -73,5 +85,8 @@ export default {
   text-align: center;
   color: #2c3e50;
   margin-top: 60px;
+  .example[data-v-f3f3eg9] {
+    color: red;
+  }
 }
 </style>
